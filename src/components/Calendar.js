@@ -1,76 +1,52 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch, connect } from 'react-redux';
 
 import CalendarList from './CalendarList'
 import CalendarForm from './CalendarForm';
+import {loadMeetingsProvider, sendMeetingProvider } from '../providers/providers';
+import actions from '../actions/calendar'
 
-class Calendar extends React.Component {
-    apiUrl = 'http://localhost:3005/meetings';
-
-    state = {
-        meetings: [],
-    }
-
-    loadMeetingsFromApi() {
-        fetch(this.apiUrl)
-            .then(resp => {
-                if(resp.ok) {
-                    return resp.json()
-                }
-                
-                throw new Error('Network error!');
-            })
-            .then(resp => {
-                this.setState({
-                    meetings: resp,
-                })
-            })
-            .catch(err => {
-                console.error(err);
-            });
-    }
-
-    sendMeetingToApi = (meetingData) => {
-        fetch(this.apiUrl, {
-            method: 'POST',
-            body: JSON.stringify(meetingData),
-            headers: {
-                'Content-Type': 'application/json',
-            },
+const Calendar = () => {
+    const meetings = useSelector((state) => state.meetings);
+    const dispatch = useDispatch();
+  
+    const loadMeetingsFromApi = () => {
+      loadMeetingsProvider()
+        .then((resp) => dispatch(actions.loadMeetingsAction(resp)))
+        .catch((err) => console.error(err));
+    };
+  
+    const sendMeetingToApi = (meetingData) => {
+      sendMeetingProvider(meetingData)
+        .then((meetingData) => {
+          dispatch(actions.saveMeetingAction(meetingData));
         })
-            .then(resp => {
-                if(resp.ok) {
-                    return resp.json()
-                }
-                
-                throw new Error('Network error!');
-            })
-            .then(meetingData => {
-                this.addMeetingToState(meetingData);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    }
+        .catch((err) => {
+          console.error(err);
+        });
+    };
+  
+    useEffect(() => {
+      loadMeetingsFromApi();
+    }, []);
+  
+    return (
+      <section>
+        <CalendarList meetings={meetings} />
+        <CalendarForm saveMeeting={sendMeetingToApi}/>
+      </section>
+    );
+  };
 
-    addMeetingToState(meetingData) {
-        this.setState({
-            meetings: [...this.state.meetings, meetingData],
-        })
-    }
+  const mapStateToProps = (state, props) => {
+	return {
+		meetings: state.meetings
+	};
+};
 
-    componentDidMount() {
-        this.loadMeetingsFromApi();
-    }
+const mapActionToProps = {
+	loadMeetingsProvider: actions.loadMeetingsAction,
+	sendMeetingProvider: actions.saveMeetingAction,
+};
 
-
-    render() {
-        return (
-            <section>
-                <CalendarList meetings={ this.state.meetings } />
-                <CalendarForm saveMeeting={ this.sendMeetingToApi }/>
-            </section>
-        )
-    }
-}
-
-export default Calendar;
+export default connect(mapStateToProps,mapActionToProps)(Calendar);

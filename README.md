@@ -54,7 +54,7 @@ json-server -v
 Jeśli masz już uruchomienego webpacka (`npm start`), to w kolejnym terminalu (lub wierszu poleceń) powinisśmy odpalić nasze API tj.
 
 ```
-json-server --watch ./db/data.json --port 3005
+ 
 ```
 
 Od teraz możesz korzystać z API pod adresem:

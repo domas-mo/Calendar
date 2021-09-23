@@ -1,8 +1,10 @@
 import React from 'react';
 
+import StyledUl from './styled/Ul.styled';
+
 class CalendarList extends React.Component {   
     render() {
-        return <ul>{ this.renderMeetingsList() }</ul>
+        return <StyledUl>{ this.renderMeetingsList() }</StyledUl>
     }
 
     renderMeetingsList() {
@@ -14,7 +16,7 @@ class CalendarList extends React.Component {
     renderMeetingsItem(itemData) {
         return (
             <li key={itemData.id}>
-                {itemData.date} {itemData.time} => 
+                {itemData.date} {itemData.time} = {'>'} 
                 <a href={`mailto: ${itemData.email}`}>
                     {itemData.firstName} {itemData.lastName}
                 </a>

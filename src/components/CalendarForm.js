@@ -1,5 +1,11 @@
 import React from 'react';
 
+import StyledInput from './styled/Input.styled';
+import StyledInputButton from './styled/InputButton.styled';
+import StyledFormDiv from './styled/FormDiv.styled';
+import StyledForm from './styled/Form.styled';
+import StyledLabel from './styled/Label.styled'
+
 class CalendarForm extends React.Component {
     state = {
         firstName: '',
@@ -12,59 +18,59 @@ class CalendarForm extends React.Component {
 
     render() {
         return (
-            <form action="" onSubmit={ this.handleSubmit }>
+            <StyledForm action="" onSubmit={ this.handleSubmit }>
                 <ul>{ this.renderErrors() }</ul>
-                <div>
-                    <label>
-                        Data: <input 
+                <StyledFormDiv>
+                    <StyledLabel>
+                        Data: <StyledInput
                             name="date" 
                             onChange={ this.handleFieldChange } 
                             value={ this.state.date } 
                             placeholder="RRRR-MM-DD"
                         />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Godzina: <input 
+                    </StyledLabel>
+                </StyledFormDiv>
+                <StyledFormDiv>
+                    <StyledLabel>
+                        Godzina: <StyledInput
                             name="time" 
                             onChange={ this.handleFieldChange } 
                             value={ this.state.time } 
                             placeholder="HH:MM"
                         />
-                    </label>
-                </div>
+                    </StyledLabel>
+                </StyledFormDiv>
 
-                <div>
-                    <label>
-                        Imię: <input 
+                <StyledFormDiv>
+                    <StyledLabel>
+                        Imię: <StyledInput
                             name="firstName" 
                             onChange={ this.handleFieldChange } 
                             value={ this.state.firstName } 
                         />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Nazwisko: <input 
+                    </StyledLabel>
+                </StyledFormDiv>
+                <StyledFormDiv>
+                    <StyledLabel>
+                        Nazwisko: <StyledInput
                             name="lastName" 
                             onChange={ this.handleFieldChange } 
                             value={ this.state.lastName } 
                         />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Email: <input 
+                    </StyledLabel>
+                </StyledFormDiv>
+                <StyledFormDiv>
+                    <StyledLabel>
+                        Email: <StyledInput
                             name="email" 
                             onChange={ this.handleFieldChange } 
                             value={ this.state.email } 
                             placeholder="nazwa@poczty.pl"
                         />
-                    </label>
-                </div>
-                <div><input type="submit" value="zapisz" /></div>
-            </form>
+                    </StyledLabel>
+                </StyledFormDiv>
+                <StyledFormDiv><StyledInputButton  type="submit" value="zapisz" /></StyledFormDiv>
+            </StyledForm >
         )
     }
 
