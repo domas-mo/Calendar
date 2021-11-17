@@ -6,6 +6,9 @@ import CalendarForm from './CalendarForm';
 import {loadMeetingsProvider, sendMeetingProvider } from '../providers/providers';
 import actions from '../actions/calendar'
 
+import TitleStyled from './styled/Title.styled';
+import StyledSection from './styled/Section.styled';
+
 const Calendar = () => {
     const meetings = useSelector((state) => state.meetings);
     const dispatch = useDispatch();
@@ -31,10 +34,15 @@ const Calendar = () => {
     }, []);
   
     return (
-      <section>
-        <CalendarList meetings={meetings} />
+      <>
+      <TitleStyled>
+          <h1>Calendar</h1>
+        </TitleStyled>
+      <StyledSection>
         <CalendarForm saveMeeting={sendMeetingToApi}/>
-      </section>
+        <CalendarList meetings={meetings} />
+      </StyledSection>
+      </>
     );
   };
 

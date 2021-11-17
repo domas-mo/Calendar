@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 const StyledUl = styled.ul`
-    padding: 10px;
-	margin: auto;
-    width: 49vw;
+    width: 50vh;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     background: #e9eaee;
     border-radius: 20px;
     box-shadow: 5.11px 5.11px 21px #777779, -5.11px -5.11px 21px #FFFFFF;
@@ -13,7 +13,7 @@ const StyledUl = styled.ul`
 
     li {
         padding: 15px;
-        margin: 10px auto;
+        margin: 1rem 0;
         color: #676b76;
         background: #e9eaee;
         border-radius: 10px;
